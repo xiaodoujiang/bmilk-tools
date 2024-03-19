@@ -9,19 +9,19 @@ public class Test {
     public static void main(String[] args) {
 
         Client client = JerseyClientFactory.builder(new JerseyProperties());
-        BaseJerseyFacade facade = BaseJerseyFacade.builder(client);
+        BaseJerseyFacade facade = BaseJerseyFacade.builder(client, "http://192.168.56.11:8848/", "");
         Map<String, String> map = new HashMap<>();
         map.put("username", "nacos");
         map.put("password", "nacos");
 
-        LoginResponse post = facade.post("http://192.168.56.14:8848/nacos/v1/auth/login", map, LoginResponse.class);
+        LoginResponse post = facade.post("nacos/v1/auth/login", map, LoginResponse.class);
         System.out.println(1);
         Map<String, String> getMap = new HashMap<>();
         getMap.put("namespaceId", "public");
         getMap.put("group", "test-app");
         getMap.put("dataId", "test-app");
         getMap.put("accessToken", post.getAccessToken());
-        CommonResponse response = facade.get("http://192.168.56.14:8848/nacos/v2/cs/config", getMap, CommonResponse.class);
+        CommonResponse response = facade.get("nacos/v2/cs/config", getMap, CommonResponse.class);
         System.out.println(response);
 
     }

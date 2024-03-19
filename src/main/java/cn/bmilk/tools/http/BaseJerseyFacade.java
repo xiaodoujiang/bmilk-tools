@@ -42,7 +42,7 @@ public class BaseJerseyFacade {
     }
 
     public <T> T post(String path, Object entity, GenericType<T> responseType) {
-        return post(path, entity, responseType);
+        return post(path, null, entity, responseType);
     }
     public <T> T post(String path, Map<String, String> form, Class<T> responseType) {
         return post(path,null, form, responseType);
