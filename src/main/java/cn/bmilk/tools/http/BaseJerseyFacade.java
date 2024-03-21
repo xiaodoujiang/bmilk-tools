@@ -159,6 +159,10 @@ public class BaseJerseyFacade {
             return response.readEntity(responseType);
         }else {
             String msg = String.format("http request failure, response:%s", response.toString());
+            if(response.hasEntity()){
+                String responseEntity = response.readEntity(String.class);
+                msg = String.format(msg + ", responseEntity:%s", responseEntity);
+            }
             throw new RuntimeException(msg);
         }
     }
