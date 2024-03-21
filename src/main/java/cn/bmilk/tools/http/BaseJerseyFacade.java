@@ -38,7 +38,7 @@ public class BaseJerseyFacade {
         return get(path, null, param, responseType);
     }
     public <T> T post(String path, Object entity, Class<T> responseType) {
-        return post(path, entity, responseType);
+        return post(path, null, entity, responseType);
     }
 
     public <T> T post(String path, Object entity, GenericType<T> responseType) {
@@ -146,6 +146,10 @@ public class BaseJerseyFacade {
             return response.readEntity(responseType);
         }else {
             String msg = String.format("http request failure, response:%s", response.toString());
+            if(response.hasEntity()){
+                String responseEntity = response.readEntity(String.class);
+                msg = String.format(msg + ", responseEntity:%s", responseEntity);
+            }
             throw new RuntimeException(msg);
         }
     }
